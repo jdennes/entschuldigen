@@ -7,20 +7,30 @@ app.get('/', function(req, res) {
   res.send("entschuldigen is a webhook receiver.");
 });
 
-app.post('/hook', function(req, res) {
-  // req.body will take the form:
-  // { ListID: {list_id},
-  //   Events:
-  //    [ { Type: {'Subscribe' | 'Update' | 'Deactivate'},
-  //        Date: '2012-10-13 03:07:00',
-  //        EmailAddress: 'example@example.com',
-  //        Name: 'Example',
-  //        CustomFields: [],
-  //        SignupIPAddress: '8.8.8.8' } ] }
-  console.log('entschuldigen receiving:');
-  console.log('--------------------');
+app.post('/receive/subscribe', function(req, res) {
+  console.log('entschuldigen receiving subscribe:');
   console.log(req.body);
-  console.log('--------------------');
+
+  // TODO: Find and remove event from event store  
+
+  res.send('entschuldigen!');
+});
+
+app.post('/receive/update', function(req, res) {
+  console.log('entschuldigen receiving update:');
+  console.log(req.body);
+
+  // TODO: Find and remove event from event store  
+
+  res.send('entschuldigen!');
+});
+
+app.post('/receive/deactivate', function(req, res) {
+  console.log('entschuldigen receiving deactivate:');
+  console.log(req.body);
+
+  // TODO: Find and remove event from event store  
+
   res.send('entschuldigen!');
 });
 
