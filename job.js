@@ -10,10 +10,8 @@ var email = 'example.' + Date.now() + '@example.com';
 
 // Subscribe
 client.post(
-  '/api/v3/subscribers/' + list_id + '.json', {
-    EmailAddress: ,
-    Name: 'Example ' + example, CustomFields: [], Resubscribe: true
-  },
+  '/api/v3/subscribers/' + list_id + '.json',
+  { EmailAddress: email, Name: '', CustomFields: [], Resubscribe: true },
   function(err, req, res, obj) {
 
     // TODO: Save event in event store
