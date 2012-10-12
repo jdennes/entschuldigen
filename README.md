@@ -19,4 +19,18 @@ This is the POST request you'll want to make:
     '{ "Events": [ "Subscribe", "Update", "Deactivate" ], "Url": "{base_uri}/hook", "PayloadFormat": "json" }'
 
 This sets up entschuldigen as the webhook receiver which will process
-subscribe, update, and deactivate events which occur on your list.
+POST requests from Campaign Monitor for subscribe, update, and deactivate
+events which occur on your list.
+
+The body the POST requests which come from Campaign Monitor take the following form:
+
+    POST /hook HTTP/1.1
+    
+    { ListID: {list_id},
+       Events:
+        [ { Type: {'Subscribe' | 'Update' | 'Deactivate'},
+            Date: '2012-10-13 03:07:00',
+            EmailAddress: 'example@example.com',
+            Name: 'Example',
+            CustomFields: [],
+            SignupIPAddress: '8.8.8.8' } ] }
