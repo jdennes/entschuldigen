@@ -8,7 +8,16 @@ app.get('/', function(req, res) {
 });
 
 app.post('/hook', function(req, res) {
-  console.log('entshuldigen receiving:');
+  // req.body will take the form:
+  // { ListID: {list_id},
+  //   Events:
+  //    [ { Type: {'Subscribe' | 'Update' | 'Deactivate'},
+  //        Date: '2012-10-13 03:07:00',
+  //        EmailAddress: 'example@example.com',
+  //        Name: 'Example',
+  //        CustomFields: [],
+  //        SignupIPAddress: '8.8.8.8' } ] }
+  console.log('entschuldigen receiving:');
   console.log('--------------------');
   console.log(req.body);
   console.log('--------------------');
