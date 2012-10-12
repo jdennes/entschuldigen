@@ -15,7 +15,7 @@ You'll need the following:
 
 This is the POST request you'll want to make:
 
-    $ curl -u "{api_key}:x" https://api.createsend.com/api/v3/list/{list_id}/webhooks.json -X POST -d \
+    $ curl -u "{api_key}:x" https://api.createsend.com/api/v3/lists/{list_id}/webhooks.json -X POST -d \
     '{ "Events": [ "Subscribe", "Update", "Deactivate" ], "Url": "{base_uri}/hook", "PayloadFormat": "json" }'
 
 This sets up entschuldigen as the webhook receiver which will process

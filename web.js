@@ -2,12 +2,16 @@ var express = require('express');
 
 var app = express.createServer(express.logger());
 
-app.get('/', function(request, response) {
-  response.send("entschuldigen is a webhook receiver.");
+app.get('/', function(req, res) {
+  res.send("entschuldigen is a webhook receiver.");
 });
 
-app.post('/hook', function(request, response) {
-  console.log(response);
+app.post('/hook', function(req, res) {
+  console.log('entshuldigen receiving:');
+  console.log('--------------------');
+  console.log(req.body);
+  console.log('--------------------');
+  res.send('entschuldigen!');
 });
 
 var port = process.env.PORT || 5000;
