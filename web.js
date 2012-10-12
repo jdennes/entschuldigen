@@ -1,40 +1,41 @@
-var express = require('express');
+var restify = require('restify');
 
-var app = express.createServer(express.logger());
-app.use(express.bodyParser());
+var server = restify.createServer();
+server.use(restify.bodyParser());
+server.get('/', function (req, res, next) { 
+  res.send('entschuldigen is listening.') });
 
-app.get('/', function(req, res) {
-  res.send("entschuldigen is a webhook receiver.");
-});
-
-app.post('/receive/subscribe', function(req, res) {
+server.post('/receive/subscribe', function (req, res, next) {
   console.log('entschuldigen receiving subscribe:');
   console.log(req.body);
 
   // TODO: Find and remove event from event store  
 
-  res.send('entschuldigen!');
+  res.send('entschuldigen heard you.')
+  return next();
 });
 
-app.post('/receive/update', function(req, res) {
+server.post('/receive/update', function (req, res, next) {
   console.log('entschuldigen receiving update:');
   console.log(req.body);
 
   // TODO: Find and remove event from event store  
 
-  res.send('entschuldigen!');
+  res.send('entschuldigen heard you.')
+  return next();
 });
 
-app.post('/receive/deactivate', function(req, res) {
+server.post('/receive/deactivate', function (req, res, next) {
   console.log('entschuldigen receiving deactivate:');
   console.log(req.body);
 
   // TODO: Find and remove event from event store  
 
-  res.send('entschuldigen!');
+  res.send('entschuldigen heard you.')
+  return next();
 });
 
 var port = process.env.PORT || 5000;
-app.listen(port, function() {
-  console.log("Listening on " + port);
+server.listen(port, function() {
+  console.log('Listening at %s', server.url);
 });

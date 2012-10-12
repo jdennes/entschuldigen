@@ -2,8 +2,7 @@
   "name": "entschuldigen",
   "version": "0.0.1",
   "dependencies": {
-    "restify": "1.0.x",
-    "express": "2.5.x"
+    "restify": "1.0.x"
   },
   "engines": {
     "node": "0.8.x",
