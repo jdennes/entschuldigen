@@ -3,7 +3,11 @@ var express = require('express');
 var app = express.createServer(express.logger());
 
 app.get('/', function(request, response) {
-  response.send('entschuldigen');
+  response.send("entschuldigen is a webhook receiver.");
+});
+
+app.post('/hook', function(request, response) {
+  console.log(response);
 });
 
 var port = process.env.PORT || 5000;
