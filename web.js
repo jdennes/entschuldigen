@@ -1,6 +1,7 @@
 var express = require('express');
 
 var app = express.createServer(express.logger());
+app.use(express.bodyParser());
 
 app.get('/', function(req, res) {
   res.send("entschuldigen is a webhook receiver.");
