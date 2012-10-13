@@ -21,13 +21,15 @@ server.post('/receive/subscribe', function (req, res, next) {
   console.log('entschuldigen receiving subscribe:');
   console.log(req.body);
   var event_id = 'subscribe-' + req.body.Events[0].EmailAddress;
+  var event = {};
+  db.get('/events/' + event_id, function (err, req, res, obj) {
+    event = obj;
+  });
   // Delete from events to indicate that event was heard
   db.del(
-    '/events/' + event_id,
+    '/events/' + event_id + '?rev=' + event.value.rev,
     function (err, req, res) {
-      
       console.log('%d -> %j', res.statusCode, res.headers);      
-
       console.log('Deleted: %j', event_id);
     }
   );
