@@ -7,12 +7,12 @@ server.use(restify.bodyParser({ mapParams: false }));
 
 server.get('/', function (req, res, next) { res.send("i'm listening..."); });
 server.get('/events', function (req, res, next) {
-  db.get('/events', function (rq, rs, data) {
+  db.get('/events/_all_docs_', function (rq, rs, data) {
     res.send(data);
   });
 });
 server.get('/subscribers', function (req, res, next) {
-  db.get('/subscribers', function (rq, rs, data) {
+  db.get('/subscribers/_all_docs_', function (rq, rs, data) {
     res.send(data);
   });
 });
