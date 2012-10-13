@@ -88,6 +88,18 @@ The listener (web.js) is listening for HTTP POSTs in response to these events
 using the webhooks you set up. When the listener hears a POST, the event is 
 removed from the events store to indicate that it has been heard.
 
-TODO:
+There are two routes which are available via GET request: `GET /events` and
+`GET /subscribers`.
+
+The `/events` route gets the items currently in the events store. The events store
+should be empty most of the time. If the events store contains items which are
+more than a few minutes old, there is a problem, and the listener isn't hearing
+list events properly.
+    
+
+The `/subscribers` route gets the items in the subscribers list. This can be
+compared with the items in the corresponding Campaign Monitor list for
+consistency.
+
+## TODO:
 - Complete job.js so that it fires off update and deactiveate events.
-- Add routes to get current subscriber list, and current events store.

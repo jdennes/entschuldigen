@@ -8,12 +8,12 @@ server.use(restify.bodyParser({ mapParams: false }));
 server.get('/', function (req, res, next) { res.send("i'm listening..."); });
 server.get('/events', function (request, response, next) {
   db.get('/events/_all_docs', function (err, req, res, obj) {
-    response.send(obj);
+    response.send(JSON.stringify(obj, null, 2));
   });
 });
 server.get('/subscribers', function (request, response, next) {
   db.get('/subscribers/_all_docs', function (err, req, res, obj) {
-    response.send(obj);
+    response.send(JSON.stringify(obj, null, 2));
   });
 });
 
@@ -21,14 +21,12 @@ server.post('/receive/subscribe', function (req, res, next) {
   console.log('entschuldigen receiving subscribe:');
   console.log(req.body);
   var event_id = 'subscribe-' + req.body.Events[0].EmailAddress;
-  var event = {};
-  db.get('/events/' + event_id, function (err, req, res, obj) {
-    event = obj;
-    // Delete from events to indicate that event was heard
+  // Find the event in the events store and delete to indicate that
+  // the event was heard by the listener
+  db.get('/events/' + event_id, function (err, req, res, event) {
     db.del(
       '/events/' + event_id + '?rev=' + event._rev,
       function (err, req, res) {
-        console.log('%d -> %j', res.statusCode, res.headers);      
         console.log('Deleted: %j', event_id);
       }
     );

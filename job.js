@@ -28,7 +28,7 @@ client.post(
       }
     );
 
-    // Log event
+    // Add the event to the events store
     var id = 'subscribe-' + email;
     db.put(
       '/events/' + id,
