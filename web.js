@@ -16,7 +16,7 @@ server.get('/subscribers', function (request, response, next) {
     response.send(obj);
   });
 });
-k
+
 server.post('/receive/subscribe', function (req, res, next) {
   console.log('entschuldigen receiving subscribe:');
   console.log(req.body);
