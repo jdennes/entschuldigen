@@ -23,8 +23,13 @@ server.post('/receive/subscribe', function (req, res, next) {
   var event_id = 'subscribe-' + req.body.Events[0].EmailAddress;
   var event = {};
   db.get('/events/' + event_id, function (err, req, res, obj) {
+    
+    console.log('obj: %j', obj);
     event = obj;
   });
+
+  console.log('event: %j', event);
+
   // Delete from events to indicate that event was heard
   db.del(
     '/events/' + event_id + '?rev=' + event.value.rev,
