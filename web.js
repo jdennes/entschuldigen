@@ -8,12 +8,14 @@ server.use(restify.bodyParser({ mapParams: false }));
 server.get('/', function (req, res, next) { res.send("i'm listening..."); });
 server.get('/events', function (req, res, next) {
   db.get('/events/_all_docs_', function (rq, rs, data) {
-    res.send(data);
+    console.log(data);
+    //res.send(data);
   });
 });
 server.get('/subscribers', function (req, res, next) {
   db.get('/subscribers/_all_docs_', function (rq, rs, data) {
-    res.send(data);
+    console.log(data);
+    //res.send(data);
   });
 });
 
