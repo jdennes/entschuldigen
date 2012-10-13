@@ -7,16 +7,16 @@ server.use(restify.bodyParser({ mapParams: false }));
 
 server.get('/', function (req, res, next) { res.send("i'm listening..."); });
 server.get('/events', function (request, response, next) {
-  db.get('/events/_all_docs_', function (err, req, res, obj) {
+  db.get('/events/_all_docs', function (err, req, res, obj) {
     response.send(obj);
   });
 });
 server.get('/subscribers', function (request, response, next) {
-  db.get('/subscribers/_all_docs_', function (err, req, res, obj) {
+  db.get('/subscribers/_all_docs', function (err, req, res, obj) {
     response.send(obj);
   });
 });
-
+k
 server.post('/receive/subscribe', function (req, res, next) {
   console.log('entschuldigen receiving subscribe:');
   console.log(req.body);
@@ -25,7 +25,10 @@ server.post('/receive/subscribe', function (req, res, next) {
   db.del(
     '/events/' + event_id,
     function (err, req, res) {
-      console.log('Deleted: %s', event_id);
+      
+      console.log('%d -> %j', res.statusCode, res.headers);      
+
+      console.log('Deleted: %j', event_id);
     }
   );
   res.send('entschuldigen heard you.');
