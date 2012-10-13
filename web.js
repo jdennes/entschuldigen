@@ -23,21 +23,16 @@ server.post('/receive/subscribe', function (req, res, next) {
   var event_id = 'subscribe-' + req.body.Events[0].EmailAddress;
   var event = {};
   db.get('/events/' + event_id, function (err, req, res, obj) {
-    
-    console.log('obj: %j', obj);
     event = obj;
+    // Delete from events to indicate that event was heard
+    db.del(
+      '/events/' + event_id + '?rev=' + event._rev,
+      function (err, req, res) {
+        console.log('%d -> %j', res.statusCode, res.headers);      
+        console.log('Deleted: %j', event_id);
+      }
+    );
   });
-
-  console.log('event: %j', event);
-
-  // Delete from events to indicate that event was heard
-  db.del(
-    '/events/' + event_id + '?rev=' + event.value.rev,
-    function (err, req, res) {
-      console.log('%d -> %j', res.statusCode, res.headers);      
-      console.log('Deleted: %j', event_id);
-    }
-  );
   res.send('entschuldigen heard you.');
   return next();
 });
