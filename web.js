@@ -8,12 +8,12 @@ server.use(restify.bodyParser({ mapParams: false }));
 server.get('/', function (req, res, next) { res.send("i'm listening..."); });
 server.get('/events', function (request, response, next) {
   db.get('/events/_all_docs', function (err, req, res, obj) {
-    response.send(JSON.stringify(obj, null, 2));
+    response.send(obj);
   });
 });
 server.get('/subscribers', function (request, response, next) {
   db.get('/subscribers/_all_docs', function (err, req, res, obj) {
-    response.send(JSON.stringify(obj, null, 2));
+    response.send(obj);
   });
 });
 
