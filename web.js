@@ -6,16 +6,14 @@ var server = restify.createServer({ name: 'entschuldigen' });
 server.use(restify.bodyParser({ mapParams: false }));
 
 server.get('/', function (req, res, next) { res.send("i'm listening..."); });
-server.get('/events', function (req, res, next) {
-  db.get('/events/_all_docs_', function (rq, rs, data) {
-    console.log(data);
-    //res.send(data);
+server.get('/events', function (request, response, next) {
+  db.get('/events/_all_docs_', function (err, req, res, obj) {
+    response.send(obj);
   });
 });
-server.get('/subscribers', function (req, res, next) {
-  db.get('/subscribers/_all_docs_', function (rq, rs, data) {
-    console.log(data);
-    //res.send(data);
+server.get('/subscribers', function (request, response, next) {
+  db.get('/subscribers/_all_docs_', function (err, req, res, obj) {
+    response.send(obj);
   });
 });
 
