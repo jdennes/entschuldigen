@@ -16,7 +16,7 @@ server.post('/receive/subscribe', function (req, res, next) {
   db.del(
     '/events/' + event_id,
     function (err, req, res) {
-      console.log('Deleted: %s', event_key);
+      console.log('Deleted: %s', event_id);
     }
   );
   res.send('entschuldigen heard you.');
