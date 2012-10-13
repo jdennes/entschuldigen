@@ -24,7 +24,7 @@ client.post(
       '/subscribers/' + email,
       { state: "Active", name: name, email: email },
       function (err, req, res, obj) {
-        console.log('Saved %s', email);
+        console.log('Saved: %s', email);
       }
     );
 

@@ -1,7 +1,6 @@
 var restify = require('restify');
 
-var db = process.env.CLOUDANT_URL;
-var events = restify.createJsonClient({ url: db });
+var db = restify.createJsonClient({ url: process.env.CLOUDANT_URL });
 
 var server = restify.createServer({ name: 'entschuldigen' });
 server.use(restify.bodyParser({ mapParams: false }));
@@ -12,30 +11,31 @@ server.get('/', function (req, res, next) {
 server.post('/receive/subscribe', function (req, res, next) {
   console.log('entschuldigen receiving subscribe:');
   console.log(req.body);
-
-  // TODO: Find and remove event from event store
-
-  res.send('entschuldigen heard you.')
+  var event_id = 'subscribe-' + req.body.Events[0].EmailAddress;
+  // Delete from events to indicate that event was heard
+  db.del(
+    '/events/' + event_id,
+    function (err, req, res) {
+      console.log('Deleted: %s', event_key);
+    }
+  );
+  res.send('entschuldigen heard you.');
   return next();
 });
 
 server.post('/receive/update', function (req, res, next) {
   console.log('entschuldigen receiving update:');
   console.log(req.body);
-
-  // TODO: Find and remove event from event store
-
-  res.send('entschuldigen heard you.')
+  // TODO: Delete from events to indicate that event was heard
+  res.send('entschuldigen heard you.');
   return next();
 });
 
 server.post('/receive/deactivate', function (req, res, next) {
   console.log('entschuldigen receiving deactivate:');
   console.log(req.body);
-
-  // TODO: Find and remove event from event store
-
-  res.send('entschuldigen heard you.')
+  // TODO: Delete from events to indicate that event was heard
+  res.send('entschuldigen heard you.');
   return next();
 });
 
