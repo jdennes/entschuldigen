@@ -71,8 +71,8 @@ Which should give you something like:
 
 Set the following environment variables:
 
-`CM_API_KEY` (your Campaign Monitor API key)
-`CM_LIST_ID` (your Campaign Monitor API list ID)
+- `CM_API_KEY` (your Campaign Monitor API key)
+- `CM_LIST_ID` (your Campaign Monitor API list ID)
 
 ## What does this thing actually do?
 

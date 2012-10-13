@@ -1,4 +1,8 @@
 var restify = require('restify');
+
+var db = process.env.CLOUDANT_URL;
+var events = restify.createJsonClient({ url: db });
+
 var server = restify.createServer({ name: 'entschuldigen' });
 server.use(restify.bodyParser({ mapParams: false }));
 
