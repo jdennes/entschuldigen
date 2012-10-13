@@ -5,8 +5,17 @@ var db = restify.createJsonClient({ url: process.env.CLOUDANT_URL });
 var server = restify.createServer({ name: 'entschuldigen' });
 server.use(restify.bodyParser({ mapParams: false }));
 
-server.get('/', function (req, res, next) { 
-  res.send('entschuldigen is listening.') });
+server.get('/', function (req, res, next) { res.send("i'm listening..."); });
+server.get('/events', function (req, res, next) {
+  db.get('/events', function (rq, rs, data) {
+    res.send(data);
+  });
+});
+server.get('/subscribers', function (req, res, next) {
+  db.get('/subscribers', function (rq, rs, data) {
+    res.send(data);
+  });
+});
 
 server.post('/receive/subscribe', function (req, res, next) {
   console.log('entschuldigen receiving subscribe:');
@@ -41,5 +50,5 @@ server.post('/receive/deactivate', function (req, res, next) {
 
 var port = process.env.PORT || 5000;
 server.listen(parseInt(port), function() {
-  console.log('Listening at %s', server.url);
+  console.log("i'm listening at %s", server.url);
 });

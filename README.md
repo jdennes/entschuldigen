@@ -1,6 +1,6 @@
 # entschuldigen
 
-entschuligen is a full time integration test. It tests whether an external
+entschuligen is a full-time integration test. It tests whether an external
 data source can be reliably synchronised with a Campaign Monitor subscriber
 list. This is achieved by periodically performing subscribe, update, and
 deactivate operations on a list, as well as acting as a webhook receiver
@@ -76,15 +76,18 @@ Set the following environment variables:
 
 ## What does this thing actually do?
 
-entschuldigen periodically fires off subscribe, update, and deactivate
-events on your list, by calling the Campaign Monitor API (job.js). We keep a
-record of every event which is fired off in an event store.
+entschuldigen consists of an actor (job.js) and a listener (web.js).
 
-At the same time, the entschuldigen listener (web.js) is listening for these
-events using the webhooks you set up. When an event is heard, the listener
-receives the event, and removes it from the event store.
+The actor (job.js) periodically fires off subscribe, update, and deactivate
+events on your list, by calling the Campaign Monitor API. We keep a
+record of every event the actor invokes in an events store. The actor keeps
+its own local list of subscribers which are synchrised with the Campaign
+Monitor list.
+
+The listener (web.js) is listening for HTTP POSTs in response to these events
+using the webhooks you set up. When the listener hears a POST, the event is 
+removed from the events store to indicate that it has been heard.
 
 TODO:
-- Complete job.js so that it fires off more events, and so that it persists
-a record of these events.
-- Report on the state of the event store.
+- Complete job.js so that it fires off update and deactiveate events.
+- Add routes to get current subscriber list, and current events store.
