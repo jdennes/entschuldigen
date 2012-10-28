@@ -1,9 +1,10 @@
 # entschuldigen
 
 entschuligen is a full-time integration test. It tests whether an external
-data source can be reliably synchronised with a Campaign Monitor subscriber
-list. This is achieved by periodically performing subscribe, update, and
-deactivate operations on a list, as well as acting as a webhook receiver
+data source can be reliably synchronised with a
+[Campaign Monitor](http://www.campaignmonitor.com/)
+subscriber list. This is achieved by periodically performing subscribe, update,
+and deactivate operations on a list, as well as acting as a webhook receiver
 for these operations.
 
 ## Webhook setup
@@ -81,7 +82,7 @@ entschuldigen consists of an actor (job.js) and a listener (web.js).
 The actor (job.js) periodically fires off subscribe, update, and deactivate
 events on your list, by calling the Campaign Monitor API. We keep a
 record of every event the actor invokes in an events store. The actor keeps
-its own local list of subscribers which are synchrised with the Campaign
+its own local list of subscribers which are synchronised with the Campaign
 Monitor list.
 
 The listener (web.js) is listening for HTTP POSTs in response to these events
@@ -93,9 +94,10 @@ There are two routes which are available via GET request: `GET /events` and
 
 The `/events` route gets the items currently in the events store. The events store
 should be empty most of the time. If the events store contains items which are
-more than a few minutes old, there is a problem, and the listener isn't hearing
-list events properly.
-    
+more than a few minutes old, there is a problem. This indicates that either:
+
+- The HTTP POST requests for the events aren't being sent by Campaign Monitor
+- The listener (web.js) isn't hearing events properly
 
 The `/subscribers` route gets the items in the subscribers list. This can be
 compared with the items in the corresponding Campaign Monitor list for
